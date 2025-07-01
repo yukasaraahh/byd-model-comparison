@@ -1,3 +1,21 @@
+# ---------------- Font ----------------
+st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;700&display=swap');
+
+    * {
+        font-family: 'Noto Sans Thai', sans-serif !important;
+    }
+
+    html, body, div, span, input, select, button, label, textarea,
+    .css-1d391kg, .css-ffhzg2, .css-1cpxqw2, .css-1offfwp, .stButton button {
+        font-family: 'Noto Sans Thai', sans-serif !important;
+    }
+x
+
+    </style>
+""", unsafe_allow_html=True)
+
 import streamlit as st
 import pandas as pd
 import requests
