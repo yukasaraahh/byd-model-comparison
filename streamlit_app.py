@@ -170,12 +170,12 @@ def render_compare_box(data):
     }
 
     for label, value in specs.items():
-    st.markdown(f"""
-        <div class="spec-block">
-            <div class="spec-label-small">{label}</div>
-            <div class="spec-value-big">{value}</div>
-        </div>
-    """, unsafe_allow_html=True)
+        st.markdown(f"""
+            <div class="spec-block">
+                <div class="spec-label-small">{label}</div>
+                <div class="spec-value-big">{value}</div>
+            </div>
+        """, unsafe_allow_html=True)
 
 col1, col2 = st.columns(2)
 with col1:
