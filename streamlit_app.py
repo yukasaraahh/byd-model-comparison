@@ -134,7 +134,7 @@ def render_comparison_table(data1, data2):
         "อัตราเร่ง 0–100": (f"{data1['acceleration_0_100']} วิ", f"{data2['acceleration_0_100']} วิ"),
         "ความเร็วสูงสุด": (f"{data1['top_speed_kmph']} กม./ชม.", f"{data2['top_speed_kmph']} กม./ชม."),
         "ระบบขับเคลื่อน": (data1['drivetrain'], data2['drivetrain']),
-        "ความจุแบตเตอรี่": (data1['battery_kwh'], data2['battery_kwh']),
+        "ความจุแบตเตอรี่": (f"{data1['battery_kwh']} kWh", f"{data2['battery_kwh']} kWh"), # Added kWh for clarity
     }
 
     html = f"""
@@ -179,27 +179,6 @@ def render_comparison_table(data1, data2):
 
     st.markdown(html, unsafe_allow_html=True)
 
-
-    # HTML Body
-    html = """
-    <div class="compare-spec-card">
-        <div class="compare-spec-table">
-            <div class="compare-spec-header">สเปค</div>
-            <div class="compare-spec-header">{model1}</div>
-            <div class="compare-spec-header">{model2}</div>
-    """.format(model1=data1['model'], model2=data2['model'])
-
-
-    for label, (val1, val2) in specs.items():
-        html += """
-            <div class="spec-label">{label}</div>
-            <div class="spec-value">{val1}</div>
-            <div class="spec-value">{val2}</div>
-        """.format(label=label, val1=val1, val2=val2)
-
-    html += "</div></div>"
-
-    st.markdown(html, unsafe_allow_html=True)
 
 # --- Render Output ---
 st.markdown("### 🔍 เปรียบเทียบรุ่นรถ BYD")
