@@ -217,7 +217,7 @@ def render_comparison_table(data1, data2):
 
 # ---------------- Render Output ----------------
 st.markdown("### 🔍 เปรียบเทียบรุ่นรถ BYD")
-car1_data, car2_data = render_model_boxes()
+render_model_boxes(car1_data, car2_data)
 
 st.markdown("### 📋 ตารางเปรียบเทียบสเปกรถ")
 render_comparison_table(car1_data, car2_data)
