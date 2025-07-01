@@ -31,16 +31,24 @@ st.markdown("""
 #MainMenu, header, footer {visibility: hidden;}
 .block-container {padding-top: 1rem;}
 .compare-container {
-    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+  display: flex;
+  flex-direction: row; /* อยู่แนวนอนเสมอ */
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: nowrap; /* ห้าม wrap */
+  overflow-x: auto; /* scroll ได้ถ้าจอเล็กเกิน */
+  padding-bottom: 12px;
+
 }
 .compare-box {
-    border: 1px solid #eee;
-    border-radius: 16px;
-    padding: 20px;
-    width: 100%;
-    max-width: 420px;
-    background: white;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.06);
+  flex: 1 1 48%;
+  min-width: 250px; /* บังคับให้แต่ละกล่องไม่หดเกินไป */
+  border-radius: 16px;
+  padding: 16px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: center;
 }
 .compare-box img {
     width: 100%;
@@ -54,6 +62,19 @@ st.markdown("""
 }
 .model-price {
     font-size: 20px; font-weight: 600; text-align: center; margin-bottom: 16px; color: #111;
+}
+
+@media screen and (max-width: 768px) {
+  .compare-container {
+    gap: 12px;
+    padding: 0 8px 16px;
+  }
+  .model-title {
+    font-size: 16px;
+  }
+  .model-price {
+    font-size: 18px;
+  }
 }
 .spec-table {
     width: 100%;
