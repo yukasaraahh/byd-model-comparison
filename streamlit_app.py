@@ -86,7 +86,7 @@ st.markdown('<div class="compare-container">', unsafe_allow_html=True)
 # --- Render Card Function ---
 def render_compare_box(data):
     st.markdown('<div class="compare-box">', unsafe_allow_html=True)
-    st.image(get_image_url(data["image_url"]), caption=f"{data['model']} - {data['variant']}", use_column_width=True)
+    st.image(get_image_url(data["image_url"]), caption=f"{data['model']} - {data['variant']}", use_container_width=True)
     st.markdown(f"<h3>{data['model']}<br><small>{data['variant']}</small></h3>", unsafe_allow_html=True)
 
     specs = {
