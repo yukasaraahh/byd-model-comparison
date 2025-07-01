@@ -58,3 +58,61 @@ def get_image_url(link):
         file_id = match.group(1)
         return f"https://drive.google.com/uc?export=view&id={file_id}"
     return link
+
+# --- Load your Google Sheet ---
+sheet_link = "https://docs.google.com/spreadsheets/d/1haRAYhZrOXFX817BgJNwo2rcIUgy8K5ZNGUnT8juy1w/edit?usp=sharing"
+csv_link = convert_google_sheet_link_to_csv(sheet_link)
+df = read_google_sheet_csv(csv_link)
+
+# --- Check and render UI ---
+if df.empty or 'model' not in df.columns:
+    st.error("❌ Unable to load comparison data from Google Sheet.")
+    st.stop()
+
+car_names = df['model'].unique().tolist()
+col1, col2 = st.columns(2)
+
+with col1:
+    car_1 = st.selectbox("🚗 เลือกรถคันที่ 1", car_names, key="car1")
+with col2:
+    car_2 = st.selectbox("🚗 เลือกรถคันที่ 2", car_names, index=1 if len(car_names) > 1 else 0, key="car2")
+
+car1_data = df[df['model'] == car_1].iloc[0]
+car2_data = df[df['model'] == car_2].iloc[0]
+
+st.markdown("### 🔍 เปรียบเทียบรุ่นรถ BYD")
+st.markdown('<div class="compare-container">', unsafe_allow_html=True)
+
+# --- Render Card Function ---
+def render_compare_box(data):
+    st.markdown('<div class="compare-box">', unsafe_allow_html=True)
+    st.image(get_image_url(data["image_url"]), caption=f"{data['model']} - {data['variant']}", use_column_width=True)
+    st.markdown(f"<h3>{data['model']}<br><small>{data['variant']}</small></h3>", unsafe_allow_html=True)
+
+    specs = {
+        "💰 ราคา": f"฿{int(data['price']):,}",
+        "🔋 ระยะทาง": f"{data['range_km']} กม.",
+        "🪑 ที่นั่ง": f"{int(data['seats'])} ที่นั่ง",
+        "⚡ อัตราเร่ง": f"{data['acceleration_0_100']} วินาที (0–100)",
+        "🚀 ความเร็วสูงสุด": f"{data['top_speed_kmph']} กม./ชม.",
+        "📦 พื้นที่สัมภาระ": f"{data['cargo_liters']} ลิตร",
+        "🔧 ระบบขับเคลื่อน": data['drivetrain'],
+        "🔋 แบตเตอรี่": data['battery_kwh'],
+    }
+
+    for label, value in specs.items():
+        st.markdown(f"""
+            <div class="spec-row">
+                <div class="spec-label">{label}</div>
+                <div class="spec-value">{value}</div>
+            </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# --- Display both cars side by side ---
+render_compare_box(car1_data)
+render_compare_box(car2_data)
+
+st.markdown('</div>', unsafe_allow_html=True)
+
