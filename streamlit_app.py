@@ -112,6 +112,18 @@ def get_image_url(link):
         return f"https://drive.google.com/uc?export=view&id={match.group(1)}"
     return link
 
+# ✅ วางตรงนี้!
+def show_model_card(data):
+    html = f"""
+    <div class="compare-box">
+        <img src="{get_image_url(data['image'])}" alt="{data['model']}" style="width:100%; border-radius: 10px;">
+        <div class="model-title">{data['model']}</div>
+        <div class="model-variant">{data['variant']}</div>
+        <div class="model-price">฿{int(data['price']):,}</div>
+    </div>
+    """
+    st.markdown(html, unsafe_allow_html=True)
+
 # ---------------- Load Sheet ----------------
 sheet_link = "https://docs.google.com/spreadsheets/d/1haRAYhZrOXFX817BgJNwo2rcIUgy8K5ZNGUnT8juy1w/edit?usp=sharing"
 csv_link = convert_google_sheet_link_to_csv(sheet_link)
@@ -139,24 +151,20 @@ car1_data = df[df['model'] == car_1].iloc[0]
 car2_data = df[df['model'] == car_2].iloc[0]
 
 # ---------------- Render Car Boxes ----------------
-def render_model_boxes(data1, data2):
-    html = f"""
-    <div class="compare-container">
-        <div class="compare-box">
-            <img src="{get_image_url(data1['image'])}" alt="{data1['model']}" style="width:100%; border-radius: 10px;">
-            <div class="model-title">{data1['model']}</div>
-            <div class="model-variant">{data1['variant']}</div>
-            <div class="model-price">฿{int(data1['price']):,}</div>
-        </div>
-        <div class="compare-box">
-            <img src="{get_image_url(data2['image'])}" alt="{data2['model']}" style="width:100%; border-radius: 10px;">
-            <div class="model-title">{data2['model']}</div>
-            <div class="model-variant">{data2['variant']}</div>
-            <div class="model-price">฿{int(data2['price']):,}</div>
-        </div>
-    </div>
-    """
-    st.markdown(html, unsafe_allow_html=True)
+def render_model_boxes():
+    col1, col2 = st.columns(2)
+
+    with col1:
+        selected_car_1 = st.selectbox("เลือกรุ่นรถฝั่งซ้าย", car_names, key="car1_box")
+        car1_data = df[df['model'] == selected_car_1].iloc[0]
+        show_model_card(car1_data)
+
+    with col2:
+        selected_car_2 = st.selectbox("เลือกรุ่นรถฝั่งขวา", car_names, index=1 if len(car_names) > 1 else 0, key="car2_box")
+        car2_data = df[df['model'] == selected_car_2].iloc[0]
+        show_model_card(car2_data)
+
+    return car1_data, car2_data
 
 # ---------------- Render Comparison Table ----------------
 def render_comparison_table(data1, data2):
@@ -184,6 +192,7 @@ def render_comparison_table(data1, data2):
 
 # ---------------- Render Output ----------------
 st.markdown("### 🔍 เปรียบเทียบรุ่นรถ BYD")
-render_model_boxes(car1_data, car2_data)
+car1_data, car2_data = render_model_boxes()
+
 st.markdown("### 📋 ตารางเปรียบเทียบสเปกรถ")
 render_comparison_table(car1_data, car2_data)
