@@ -137,50 +137,48 @@ def render_comparison_table(data1, data2):
         "ความจุแบตเตอรี่": (data1['battery_kwh'], data2['battery_kwh']),
     }
 
-    # HTML + CSS style
-    st.markdown("""
+    html = f"""
     <style>
-    .compare-spec-card {
+    .spec-table {{
         width: 100%;
-        border-radius: 16px;
-        overflow: hidden;
+        border-collapse: collapse;
         font-family: 'Sarabun', sans-serif;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-        margin-top: 2rem;
-    }
-
-    .compare-spec-table {
-        display: grid;
-        grid-template-columns: 1.2fr 1fr 1fr;
-        background: white;
-    }
-
-    .compare-spec-header {
-        background: #f2f2f2;
-        padding: 20px;
+        margin-top: 20px;
+    }}
+    .spec-table th, .spec-table td {{
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+    }}
+    .spec-table th {{
+        background-color: #f4f4f4;
         font-weight: bold;
-        text-align: center;
-        font-size: 18px;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .spec-label {
-        padding: 18px;
-        background: #fafafa;
-        font-weight: 600;
-        color: #333;
-        border-bottom: 1px solid #eee;
-    }
-
-    .spec-value {
-        padding: 18px;
-        text-align: center;
-        color: #222;
-        font-weight: 500;
-        border-bottom: 1px solid #eee;
-    }
+    }}
     </style>
-    """, unsafe_allow_html=True)
+    <table class="spec-table">
+        <thead>
+            <tr>
+                <th>สเปค</th>
+                <th>{data1['model']}</th>
+                <th>{data2['model']}</th>
+            </tr>
+        </thead>
+        <tbody>
+    """
+
+    for label, (val1, val2) in specs.items():
+        html += f"""
+        <tr>
+            <td>{label}</td>
+            <td>{val1}</td>
+            <td>{val2}</td>
+        </tr>
+        """
+
+    html += "</tbody></table>"
+
+    st.markdown(html, unsafe_allow_html=True)
+
 
     # HTML Body
     html = """
