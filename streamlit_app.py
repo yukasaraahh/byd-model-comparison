@@ -37,19 +37,24 @@ st.markdown("""
     margin-top: 12px;
 }
 .spec-row {
-    display: flex;
-    justify-content: space-between;
-    margin: 8px 0;
-    font-size: 15.5px;
-    border-bottom: 1px dashed #e3e3e3;
-    padding-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed #e0e0e0;
 }
+
 .spec-label {
-    color: #666;
+  text-transform: uppercase;
+  font-size: 13px;
+  color: #777;
+  letter-spacing: 0.5px;
 }
+
 .spec-value {
-    font-weight: 600;
-    color: #111;
+  font-size: 20px;
+  font-weight: 600;
+  color: #111;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -106,9 +111,11 @@ st.markdown('<div class="compare-container">', unsafe_allow_html=True)
 
 # --- Render Card Function ---
 def render_compare_box(data):
-    st.markdown('<div class="compare-box">', unsafe_allow_html=True)
-    st.image(get_image_url(data["image_url"]), caption=f"{data['model']} - {data['variant']}", use_container_width=True)
-    st.markdown(f"<h3>{data['model']}<br><small>{data['variant']}</small></h3>", unsafe_allow_html=True)
+    st.markdown(f"""
+    <div class="model-title">{data['model']}</div>
+    <div class="model-variant">{data['variant']}</div>
+    <div class="model-price">฿{int(data['price']):,}</div>
+""", unsafe_allow_html=True)
 
     specs = {
         "💰 ราคา": f"฿{int(data['price']):,}",
