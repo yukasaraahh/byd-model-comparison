@@ -30,6 +30,7 @@ st.markdown("""
 <style>
 #MainMenu, header, footer {visibility: hidden;}
 .block-container {padding-top: 1rem;}
+
 .compare-container {
   display: flex;
   flex-direction: row;
@@ -37,11 +38,13 @@ st.markdown("""
   gap: 12px;
   padding: 0px;
   flex-wrap: nowrap;
-  overflow-x: hidden; /* ✅ ป้องกัน scroll bar */
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
+
 .compare-box {
   flex: 1 1 0;
-  max-width: 50%;  /* ✅ ให้แต่ละกล่องใช้พื้นที่ 50% ของหน้าจอ */
+  max-width: 50%;
   box-sizing: border-box;
   background: #fff;
   border-radius: 16px;
@@ -49,20 +52,26 @@ st.markdown("""
   box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   text-align: center;
 }
+
 .compare-box img {
   width: 100%;
-  aspect-ratio: 1/1; /* หรือ 16/9 ก็ได้ถ้ารูปแนวกว้าง */
+  aspect-ratio: 1/1;
   object-fit: contain;
   border-radius: 10px;
 }
 
 @media screen and (max-width: 768px) {
-  .compare-box {
-    flex: 1 1 100%;
-    max-width: 100%;
+  .compare-container {
     padding: 0 4px;
+    gap: 8px;
+  }
+
+  .compare-box {
+    flex: 1 1 50%;
+    max-width: 50%;
   }
 }
+
 .model-title {
     font-size: 22px; font-weight: bold; text-align: center; margin-top: 10px;
 }
