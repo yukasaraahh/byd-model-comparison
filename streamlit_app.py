@@ -1,3 +1,4 @@
+import streamlit as st
 # ---------------- Font ----------------
 st.markdown("""
     <style>
@@ -16,7 +17,6 @@ x
     </style>
 """, unsafe_allow_html=True)
 
-import streamlit as st
 import pandas as pd
 import requests
 import re
