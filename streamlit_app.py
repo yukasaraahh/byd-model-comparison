@@ -78,6 +78,23 @@ st.markdown("""
     text-align: center;
     margin-bottom: 20px;
 }
+.spec-block {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.spec-label-small {
+    font-size: 13px;
+    color: #777;
+    letter-spacing: 0.3px;
+    margin-bottom: 2px;
+}
+
+.spec-value-big {
+    font-size: 22px;
+    font-weight: 600;
+    color: #111;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -133,6 +150,8 @@ st.markdown('<div class="compare-container">', unsafe_allow_html=True)
 
 # --- Render Card Function ---
 def render_compare_box(data):
+    st.image(get_image_url(data["image_url"]), use_container_width=True)
+    
     st.markdown(f"""
     <div class="model-title">{data['model']}</div>
     <div class="model-variant">{data['variant']}</div>
@@ -151,12 +170,12 @@ def render_compare_box(data):
     }
 
     for label, value in specs.items():
-        st.markdown(f"""
-            <div class="spec-row">
-                <div class="spec-label">{label}</div>
-                <div class="spec-value">{value}</div>
-            </div>
-        """, unsafe_allow_html=True)
+    st.markdown(f"""
+        <div class="spec-block">
+            <div class="spec-label-small">{label}</div>
+            <div class="spec-value-big">{value}</div>
+        </div>
+    """, unsafe_allow_html=True)
 
 col1, col2 = st.columns(2)
 with col1:
