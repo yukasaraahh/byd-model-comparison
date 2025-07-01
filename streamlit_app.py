@@ -52,9 +52,15 @@ st.markdown("""
 }
 .compare-box img {
     width: 100%;
-    height: 180px;
     object-fit: contain;
     border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .compare-box {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
 }
 .model-title {
     font-size: 22px; font-weight: bold; text-align: center; margin-top: 10px;
