@@ -176,20 +176,21 @@ def render_comparison_table(data1, data2):
     """, unsafe_allow_html=True)
 
     # HTML Body
-    html = f"""
+    html = """
     <div class="compare-spec-card">
         <div class="compare-spec-table">
             <div class="compare-spec-header">สเปค</div>
-            <div class="compare-spec-header">{data1['model']}</div>
-            <div class="compare-spec-header">{data2['model']}</div>
-    """
+            <div class="compare-spec-header">{model1}</div>
+            <div class="compare-spec-header">{model2}</div>
+    """.format(model1=data1['model'], model2=data2['model'])
+
 
     for label, (val1, val2) in specs.items():
-        html += f"""
+        html += """
             <div class="spec-label">{label}</div>
             <div class="spec-value">{val1}</div>
             <div class="spec-value">{val2}</div>
-        """
+        """.format(label=label, val1=val1, val2=val2)
 
     html += "</div></div>"
 
