@@ -128,65 +128,71 @@ def render_comparison_table(data1, data2):
         "ความเร็วสูงสุด": (f"{data1['top_speed_kmph']} กม./ชม.", f"{data2['top_speed_kmph']} กม./ชม."),
         "ระบบขับเคลื่อน": (data1['drivetrain'], data2['drivetrain']),
         "ความจุแบตเตอรี่": (data1['battery_kwh'], data2['battery_kwh']),
-        # คุณสามารถเพิ่ม spec เพิ่มตรงนี้ได้ตามต้องการ
     }
 
+    # HTML + CSS style
     st.markdown("""
     <style>
     .compare-spec-card {
-        display: grid;
-        grid-template-columns: 1fr 1.5fr 1.5fr;
-        gap: 0.5rem;
-        background: #fff;
-        border-radius: 12px;
+        width: 100%;
+        border-radius: 16px;
         overflow: hidden;
         font-family: 'Sarabun', sans-serif;
-        font-size: 16px;
-        box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-        margin-top: 1.5rem;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        margin-top: 2rem;
     }
-    .spec-row {
-        display: contents;
+
+    .compare-spec-table {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1fr;
+        background: white;
     }
-    .spec-label {
-        background: #f9f9f9;
-        padding: 16px;
-        font-weight: 600;
-        border-bottom: 1px solid #eee;
-        color: #333;
-    }
-    .spec-value {
-        padding: 16px;
-        border-bottom: 1px solid #eee;
-        text-align: center;
-        font-weight: 500;
-        color: #222;
-    }
-    .spec-head {
-        background: #f1f1f1;
-        font-weight: 700;
+
+    .compare-spec-header {
+        background: #f2f2f2;
+        padding: 20px;
+        font-weight: bold;
         text-align: center;
         font-size: 18px;
-        color: #000;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .spec-label {
         padding: 18px;
-        border-bottom: 2px solid #ddd;
+        background: #fafafa;
+        font-weight: 600;
+        color: #333;
+        border-bottom: 1px solid #eee;
+    }
+
+    .spec-value {
+        padding: 18px;
+        text-align: center;
+        color: #222;
+        font-weight: 500;
+        border-bottom: 1px solid #eee;
     }
     </style>
     """, unsafe_allow_html=True)
 
+    # HTML Body
     html = f"""
     <div class="compare-spec-card">
-        <div class="spec-head">สเปค</div>
-        <div class="spec-head">{data1['model']}</div>
-        <div class="spec-head">{data2['model']}</div>
+        <div class="compare-spec-table">
+            <div class="compare-spec-header">สเปค</div>
+            <div class="compare-spec-header">{data1['model']}</div>
+            <div class="compare-spec-header">{data2['model']}</div>
     """
+
     for label, (val1, val2) in specs.items():
         html += f"""
-        <div class="spec-label">{label}</div>
-        <div class="spec-value">{val1}</div>
-        <div class="spec-value">{val2}</div>
+            <div class="spec-label">{label}</div>
+            <div class="spec-value">{val1}</div>
+            <div class="spec-value">{val2}</div>
         """
-    html += "</div>"
+
+    html += "</div></div>"
+
     st.markdown(html, unsafe_allow_html=True)
 
 # --- Render Output ---
