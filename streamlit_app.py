@@ -86,6 +86,13 @@ sheet_link = "https://docs.google.com/spreadsheets/d/1haRAYhZrOXFX817BgJNwo2rcIU
 csv_link = convert_google_sheet_link_to_csv(sheet_link)
 df = read_google_sheet_csv(csv_link)
 
+# ✅ แปลง column ที่ควรเป็นตัวเลข
+numeric_columns = ['price', 'range_km', 'seats', 'top_speed_kmph', 'acceleration_0_100', 'battery_kwh']
+for col in numeric_columns:
+    if col in df.columns:
+        df[col] = pd.to_numeric(df[col], errors='coerce')
+
+# ✅ เช็กว่าโหลดได้จริง
 if df.empty or 'model' not in df.columns:
     st.error("❌ Unable to load comparison data from Google Sheet.")
     st.stop()
