@@ -35,7 +35,7 @@ st.markdown("""
   flex-direction: row;
   justify-content: center;
   gap: 12px;
-  padding: 8px;
+  padding: 0px;
   flex-wrap: nowrap;
   overflow-x: hidden; /* ✅ ป้องกัน scroll bar */
 }
@@ -60,6 +60,7 @@ st.markdown("""
   .compare-box {
     flex: 1 1 100%;
     max-width: 100%;
+    padding: 0 4px;
   }
 }
 .model-title {
