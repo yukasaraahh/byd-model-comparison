@@ -39,17 +39,32 @@ st.markdown("""
 }
 .spec-table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 24px;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 30px;
     font-family: 'Sarabun', sans-serif;
+    font-size: 16px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+.spec-table thead tr {
+    background-color: #f9fafb;
 }
 .spec-table th, .spec-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
+    padding: 16px 12px;
     text-align: center;
+    border-bottom: 1px solid #f1f1f1;
 }
 .spec-table th {
-    background-color: #f2f2f2;
+    font-weight: 600;
+    color: #333;
+}
+.spec-table tbody tr:hover {
+    background-color: #f5f7fa;
+}
+.spec-table td {
+    color: #444;
 }
 </style>
 """, unsafe_allow_html=True)
