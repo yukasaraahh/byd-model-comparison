@@ -17,18 +17,39 @@ st.markdown("""
     gap: 20px; flex-wrap: wrap;
 }
 .compare-box {
-    border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px;
-    flex: 1; min-width: 300px; max-width: 450px; background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    padding: 20px;
+    flex: 1;
+    min-width: 320px;
+    max-width: 450px;
+    background: #ffffff;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+    transition: all 0.2s ease-in-out;
 }
-.compare-box h3 { margin-bottom: 10px; }
+.compare-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+.compare-box h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 12px;
+}
 .spec-row {
-    display: flex; justify-content: space-between; margin: 6px 0;
-    font-size: 15px; border-bottom: 1px dashed #ddd; padding-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+    font-size: 15.5px;
+    border-bottom: 1px dashed #e3e3e3;
+    padding-bottom: 6px;
 }
-.spec-label { font-weight: 500; color: #555; }
-.spec-value { font-weight: bold; color: #111; }
-.car-image {
-    width: 100%; border-radius: 8px; margin-bottom: 10px;
+.spec-label {
+    color: #666;
+}
+.spec-value {
+    font-weight: 600;
+    color: #111;
 }
 </style>
 """, unsafe_allow_html=True)
