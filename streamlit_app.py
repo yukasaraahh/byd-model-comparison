@@ -101,26 +101,6 @@ car1_data = df[df['model'] == car_1].iloc[0]
 car2_data = df[df['model'] == car_2].iloc[0]
 
 # --- Render Top Section ---
-def render_model_boxes(data1, data2):
-    html = f"""
-    <div class="compare-container">
-        <div class="compare-box">
-            <img src="{get_image_url(data1['image'])}" alt="{data1['model']}" style="width:100%; border-radius: 10px;">
-            <div class="model-title">{data1['model']}</div>
-            <div class="model-variant">{data1['variant']}</div>
-            <div class="model-price">฿{int(data1['price']):,}</div>
-        </div>
-        <div class="compare-box">
-            <img src="{get_image_url(data2['image'])}" alt="{data2['model']}" style="width:100%; border-radius: 10px;">
-            <div class="model-title">{data2['model']}</div>
-            <div class="model-variant">{data2['variant']}</div>
-            <div class="model-price">฿{int(data2['price']):,}</div>
-        </div>
-    </div>
-    """
-    st.markdown(html, unsafe_allow_html=True)
-
-# --- Render Table Section ---
 def render_comparison_table(data1, data2):
     specs = {
         "ระยะทาง": (f"{data1['range_km']} กม.", f"{data2['range_km']} กม."),
@@ -129,54 +109,66 @@ def render_comparison_table(data1, data2):
         "ความเร็วสูงสุด": (f"{data1['top_speed_kmph']} กม./ชม.", f"{data2['top_speed_kmph']} กม./ชม."),
         "ระบบขับเคลื่อน": (data1['drivetrain'], data2['drivetrain']),
         "ความจุแบตเตอรี่": (data1['battery_kwh'], data2['battery_kwh']),
+        # คุณสามารถเพิ่ม spec เพิ่มตรงนี้ได้ตามต้องการ
     }
 
-    table_html = f"""
+    st.markdown("""
     <style>
-    .compare-table {{
-        width: 100%;
-        border-collapse: collapse;
+    .compare-spec-card {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr 1.5fr;
+        gap: 0.5rem;
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        font-family: 'Sarabun', sans-serif;
         font-size: 16px;
-    }}
-    .compare-table th, .compare-table td {{
+        box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        margin-top: 1.5rem;
+    }
+    .spec-row {
+        display: contents;
+    }
+    .spec-label {
+        background: #f9f9f9;
+        padding: 16px;
+        font-weight: 600;
         border-bottom: 1px solid #eee;
-        padding: 12px 16px;
-        text-align: center;
-    }}
-    .compare-table th {{
-        background-color: #fafafa;
-        color: #444;
-        text-align: left;
-    }}
-    .compare-table td:first-child {{
-        font-weight: 500;
         color: #333;
-        text-align: left;
-    }}
+    }
+    .spec-value {
+        padding: 16px;
+        border-bottom: 1px solid #eee;
+        text-align: center;
+        font-weight: 500;
+        color: #222;
+    }
+    .spec-head {
+        background: #f1f1f1;
+        font-weight: 700;
+        text-align: center;
+        font-size: 18px;
+        color: #000;
+        padding: 18px;
+        border-bottom: 2px solid #ddd;
+    }
     </style>
+    """, unsafe_allow_html=True)
 
-    <table class="compare-table">
-        <thead>
-            <tr>
-                <th>สเปค</th>
-                <th>{data1['model']}</th>
-                <th>{data2['model']}</th>
-            </tr>
-        </thead>
-        <tbody>
+    html = f"""
+    <div class="compare-spec-card">
+        <div class="spec-head">สเปค</div>
+        <div class="spec-head">{data1['model']}</div>
+        <div class="spec-head">{data2['model']}</div>
     """
-
     for label, (val1, val2) in specs.items():
-        table_html += f"""
-            <tr>
-                <td>{label}</td>
-                <td>{val1}</td>
-                <td>{val2}</td>
-            </tr>
+        html += f"""
+        <div class="spec-label">{label}</div>
+        <div class="spec-value">{val1}</div>
+        <div class="spec-value">{val2}</div>
         """
-    table_html += "</tbody></table>"
-    import streamlit.components.v1 as components
-    components.html(table_html, height=600, scrolling=True)
+    html += "</div>"
+    st.markdown(html, unsafe_allow_html=True)
 
 # --- Render Output ---
 st.markdown("### 🔍 เปรียบเทียบรุ่นรถ BYD")
