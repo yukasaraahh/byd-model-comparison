@@ -210,5 +210,16 @@ def render_comparison_table(data1, data2):
 
     st.markdown(table_html, unsafe_allow_html=True)
 
+# ส่วนเลือกชื่อรถ
+col1, col2 = st.columns(2)
+with col1:
+    car_1 = st.selectbox("🚗 เลือกรถคันที่ 1", car_names, key="car1")
+with col2:
+    car_2 = st.selectbox("🚗 เลือกรถคันที่ 2", car_names, index=1 if len(car_names) > 1 else 0, key="car2")
+
+car1_data = df[df['model'] == car_1].iloc[0]
+car2_data = df[df['model'] == car_2].iloc[0]
+
+# 🧾 เปลี่ยนส่วนแสดงผล
 st.markdown("### 🔍 ตารางเปรียบเทียบรุ่นรถ BYD")
 render_comparison_table(car1_data, car2_data)
