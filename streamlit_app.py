@@ -45,16 +45,38 @@ st.markdown("""
 }
 
 .spec-label {
-  text-transform: uppercase;
-  font-size: 13px;
-  color: #777;
-  letter-spacing: 0.5px;
+    font-size: 13px;
+    color: #777;
+    text-transform: none;
+    letter-spacing: 0.3px;
 }
 
 .spec-value {
-  font-size: 20px;
-  font-weight: 600;
-  color: #111;
+    font-size: 18px;
+    font-weight: 500;
+    color: #111;
+}
+.model-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.model-variant {
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.model-price {
+    font-size: 22px;
+    font-weight: 600;
+    color: #111;
+    text-align: center;
+    margin-bottom: 20px;
 }
 </style>
 """, unsafe_allow_html=True)
