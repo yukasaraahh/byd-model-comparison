@@ -129,11 +129,9 @@ def render_compare_box(data):
             </div>
         """, unsafe_allow_html=True)
 
-    st.markdown('</div>', unsafe_allow_html=True)
-
-# --- Display both cars side by side ---
-render_compare_box(car1_data)
-render_compare_box(car2_data)
-
-st.markdown('</div>', unsafe_allow_html=True)
+col1, col2 = st.columns(2)
+with col1:
+    render_compare_box(car1_data)
+with col2:
+    render_compare_box(car2_data)
 
