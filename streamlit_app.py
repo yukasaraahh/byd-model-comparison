@@ -175,7 +175,8 @@ def render_comparison_table(data1, data2):
             </tr>
         """
     table_html += "</tbody></table>"
-    st.markdown(table_html, unsafe_allow_html=True)
+    import streamlit.components.v1 as components
+    components.html(table_html, height=600, scrolling=True)
 
 # --- Render Output ---
 st.markdown("### 🔍 เปรียบเทียบรุ่นรถ BYD")
