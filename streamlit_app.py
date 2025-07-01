@@ -31,46 +31,19 @@ st.markdown("""
     transform: translateY(-4px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.08);
 }
-.compare-box h3 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-top: 12px;
-}
-.spec-row {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 0;
-  padding-bottom: 6px;
-  border-bottom: 1px dashed #e0e0e0;
-}
-
-.spec-label {
-    font-size: 13px;
-    color: #777;
-    text-transform: none;
-    letter-spacing: 0.3px;
-}
-
-.spec-value {
-    font-size: 18px;
-    font-weight: 500;
-    color: #111;
-}
 .model-title {
     font-size: 24px;
     font-weight: 600;
     color: #111;
-    margin-bottom: 4px;
+    margin-top: 12px;
     text-align: center;
 }
-
 .model-variant {
     font-size: 14px;
     color: #888;
     text-align: center;
     margin-bottom: 10px;
 }
-
 .model-price {
     font-size: 22px;
     font-weight: 600;
@@ -78,27 +51,10 @@ st.markdown("""
     text-align: center;
     margin-bottom: 20px;
 }
-.spec-block {
-    margin-bottom: 24px;
-    text-align: center;
-}
-
-.spec-label-small {
-    font-size: 13px;
-    color: #777;
-    letter-spacing: 0.3px;
-    margin-bottom: 2px;
-}
-
-.spec-value-big {
-    font-size: 22px;
-    font-weight: 600;
-    color: #111;
-}
 </style>
 """, unsafe_allow_html=True)
 
-# --- Google Sheet Functions ---
+# --- Utility functions ---
 def convert_google_sheet_link_to_csv(shared_link: str) -> str:
     sheet_id_match = re.search(r"/d/([a-zA-Z0-9-_]+)", shared_link)
     gid_match = re.search(r"gid=([0-9]+)", shared_link)
@@ -114,7 +70,7 @@ def read_google_sheet_csv(csv_url):
         response.raise_for_status()
         return pd.read_csv(StringIO(response.content.decode('utf-8')))
     except Exception as e:
-        st.error(f"Failed to load data: {e}")
+        st.error(f"โหลดข้อมูลไม่สำเร็จ: {e}")
         return pd.DataFrame()
 
 def get_image_url(link):
@@ -124,18 +80,16 @@ def get_image_url(link):
         return f"https://drive.google.com/uc?export=view&id={file_id}"
     return link
 
-# --- Load your Google Sheet ---
+# --- Load Google Sheet ---
 sheet_link = "https://docs.google.com/spreadsheets/d/1haRAYhZrOXFX817BgJNwo2rcIUgy8K5ZNGUnT8juy1w/edit?usp=sharing"
 csv_link = convert_google_sheet_link_to_csv(sheet_link)
 df = read_google_sheet_csv(csv_link)
 
-# --- Check and render UI ---
 if df.empty or 'model' not in df.columns:
     st.error("❌ Unable to load comparison data from Google Sheet.")
     st.stop()
 
 car_names = df['model'].unique().tolist()
-# ส่วนเลือกชื่อรถ
 col1, col2 = st.columns(2)
 with col1:
     car_1 = st.selectbox("🚗 เลือกรถคันที่ 1", car_names, key="car1")
@@ -145,16 +99,29 @@ with col2:
 car1_data = df[df['model'] == car_1].iloc[0]
 car2_data = df[df['model'] == car_2].iloc[0]
 
-# 🧾 เปลี่ยนส่วนแสดงผล
-st.markdown("### 🔍 ตารางเปรียบเทียบรุ่นรถ BYD")
-render_comparison_table(car1_data, car2_data)
+# --- Render Top Section ---
+def render_model_boxes(data1, data2):
+    html = f"""
+    <div class="compare-container">
+        <div class="compare-box">
+            <img src="{get_image_url(data1['image'])}" alt="{data1['model']}" style="width:100%; border-radius: 10px;">
+            <div class="model-title">{data1['model']}</div>
+            <div class="model-variant">{data1['variant']}</div>
+            <div class="model-price">฿{int(data1['price']):,}</div>
+        </div>
+        <div class="compare-box">
+            <img src="{get_image_url(data2['image'])}" alt="{data2['model']}" style="width:100%; border-radius: 10px;">
+            <div class="model-title">{data2['model']}</div>
+            <div class="model-variant">{data2['variant']}</div>
+            <div class="model-price">฿{int(data2['price']):,}</div>
+        </div>
+    </div>
+    """
+    st.markdown(html, unsafe_allow_html=True)
 
-# --- Render Card Function ---
+# --- Render Table Section ---
 def render_comparison_table(data1, data2):
     specs = {
-        "รุ่น": (data1['model'], data2['model']),
-        "รุ่นย่อย": (data1['variant'], data2['variant']),
-        "ราคา": (f"฿{int(data1['price']):,}", f"฿{int(data2['price']):,}"),
         "ระยะทาง": (f"{data1['range_km']} กม.", f"{data2['range_km']} กม."),
         "ที่นั่ง": (f"{int(data1['seats'])} ที่นั่ง", f"{int(data2['seats'])} ที่นั่ง"),
         "อัตราเร่ง 0–100": (f"{data1['acceleration_0_100']} วิ", f"{data2['acceleration_0_100']} วิ"),
@@ -163,40 +130,40 @@ def render_comparison_table(data1, data2):
         "ความจุแบตเตอรี่": (data1['battery_kwh'], data2['battery_kwh']),
     }
 
-    table_html = """
+    table_html = f"""
     <style>
-    .compare-table {
+    .compare-table {{
         width: 100%;
         border-collapse: collapse;
         font-size: 16px;
-    }
-    .compare-table th, .compare-table td {
+    }}
+    .compare-table th, .compare-table td {{
         border-bottom: 1px solid #eee;
         padding: 12px 16px;
         text-align: center;
-    }
-    .compare-table th {
+    }}
+    .compare-table th {{
         background-color: #fafafa;
         color: #444;
         text-align: left;
-    }
-    .compare-table td:first-child {
+    }}
+    .compare-table td:first-child {{
         font-weight: 500;
         color: #333;
         text-align: left;
-    }
+    }}
     </style>
 
     <table class="compare-table">
         <thead>
             <tr>
                 <th>สเปค</th>
-                <th>{model1}</th>
-                <th>{model2}</th>
+                <th>{data1['model']}</th>
+                <th>{data2['model']}</th>
             </tr>
         </thead>
         <tbody>
-    """.format(model1=data1['model'], model2=data2['model'])
+    """
 
     for label, (val1, val2) in specs.items():
         table_html += f"""
@@ -206,8 +173,11 @@ def render_comparison_table(data1, data2):
                 <td>{val2}</td>
             </tr>
         """
-
     table_html += "</tbody></table>"
-
     st.markdown(table_html, unsafe_allow_html=True)
 
+# --- Render Output ---
+st.markdown("### 🔍 เปรียบเทียบรุ่นรถ BYD")
+render_model_boxes(car1_data, car2_data)
+st.markdown("### 📋 ตารางเปรียบเทียบสเปกรถ")
+render_comparison_table(car1_data, car2_data)
