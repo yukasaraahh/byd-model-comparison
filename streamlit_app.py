@@ -32,28 +32,28 @@ st.markdown("""
 .block-container {padding-top: 1rem;}
 .compare-container {
   display: flex;
-  flex-direction: row; /* อยู่แนวนอนเสมอ */
+  flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
-  gap: 16px;
-  flex-wrap: nowrap; /* ห้าม wrap */
-  overflow-x: auto; /* scroll ได้ถ้าจอเล็กเกิน */
-  padding-bottom: 12px;
-
+  gap: 12px;
+  padding: 8px;
+  flex-wrap: nowrap;
+  overflow-x: hidden; /* ✅ ป้องกัน scroll bar */
 }
 .compare-box {
-  flex: 1 1 48%;
-  min-width: 250px; /* บังคับให้แต่ละกล่องไม่หดเกินไป */
-  border-radius: 16px;
-  padding: 16px;
+  flex: 1 1 0;
+  max-width: 50%;  /* ✅ ให้แต่ละกล่องใช้พื้นที่ 50% ของหน้าจอ */
+  box-sizing: border-box;
   background: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   text-align: center;
 }
 .compare-box img {
-    width: 100%;
-    object-fit: contain;
-    border-radius: 10px;
+  width: 100%;
+  aspect-ratio: 1/1; /* หรือ 16/9 ก็ได้ถ้ารูปแนวกว้าง */
+  object-fit: contain;
+  border-radius: 10px;
 }
 
 @media screen and (max-width: 768px) {
