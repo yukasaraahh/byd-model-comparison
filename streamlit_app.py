@@ -209,3 +209,6 @@ def render_comparison_table(data1, data2):
     table_html += "</tbody></table>"
 
     st.markdown(table_html, unsafe_allow_html=True)
+
+st.markdown("### 🔍 ตารางเปรียบเทียบรุ่นรถ BYD")
+render_comparison_table(car1_data, car2_data)
