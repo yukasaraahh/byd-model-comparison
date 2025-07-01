@@ -149,37 +149,63 @@ st.markdown("### 🔍 เปรียบเทียบรุ่นรถ BYD")
 st.markdown('<div class="compare-container">', unsafe_allow_html=True)
 
 # --- Render Card Function ---
-def render_compare_box(data):
-    st.image(get_image_url(data["image_url"]), use_container_width=True)
-    
-    st.markdown(f"""
-    <div class="model-title">{data['model']}</div>
-    <div class="model-variant">{data['variant']}</div>
-    <div class="model-price">฿{int(data['price']):,}</div>
-""", unsafe_allow_html=True)
-
+def render_comparison_table(data1, data2):
     specs = {
-        "💰 ราคา": f"฿{int(data['price']):,}",
-        "🔋 ระยะทาง": f"{data['range_km']} กม.",
-        "🪑 ที่นั่ง": f"{int(data['seats'])} ที่นั่ง",
-        "⚡ อัตราเร่ง": f"{data['acceleration_0_100']} วินาที (0–100)",
-        "🚀 ความเร็วสูงสุด": f"{data['top_speed_kmph']} กม./ชม.",
-        "📦 พื้นที่สัมภาระ": f"{data['cargo_liters']} ลิตร",
-        "🔧 ระบบขับเคลื่อน": data['drivetrain'],
-        "🔋 แบตเตอรี่": data['battery_kwh'],
+        "รุ่น": (data1['model'], data2['model']),
+        "รุ่นย่อย": (data1['variant'], data2['variant']),
+        "ราคา": (f"฿{int(data1['price']):,}", f"฿{int(data2['price']):,}"),
+        "ระยะทาง": (f"{data1['range_km']} กม.", f"{data2['range_km']} กม."),
+        "ที่นั่ง": (f"{int(data1['seats'])} ที่นั่ง", f"{int(data2['seats'])} ที่นั่ง"),
+        "อัตราเร่ง 0–100": (f"{data1['acceleration_0_100']} วิ", f"{data2['acceleration_0_100']} วิ"),
+        "ความเร็วสูงสุด": (f"{data1['top_speed_kmph']} กม./ชม.", f"{data2['top_speed_kmph']} กม./ชม."),
+        "ระบบขับเคลื่อน": (data1['drivetrain'], data2['drivetrain']),
+        "ความจุแบตเตอรี่": (data1['battery_kwh'], data2['battery_kwh']),
     }
 
-    for label, value in specs.items():
-        st.markdown(f"""
-            <div class="spec-block">
-                <div class="spec-label-small">{label}</div>
-                <div class="spec-value-big">{value}</div>
-            </div>
-        """, unsafe_allow_html=True)
+    table_html = """
+    <style>
+    .compare-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+    }
+    .compare-table th, .compare-table td {
+        border-bottom: 1px solid #eee;
+        padding: 12px 16px;
+        text-align: center;
+    }
+    .compare-table th {
+        background-color: #fafafa;
+        color: #444;
+        text-align: left;
+    }
+    .compare-table td:first-child {
+        font-weight: 500;
+        color: #333;
+        text-align: left;
+    }
+    </style>
 
-col1, col2 = st.columns(2)
-with col1:
-    render_compare_box(car1_data)
-with col2:
-    render_compare_box(car2_data)
+    <table class="compare-table">
+        <thead>
+            <tr>
+                <th>สเปค</th>
+                <th>{model1}</th>
+                <th>{model2}</th>
+            </tr>
+        </thead>
+        <tbody>
+    """.format(model1=data1['model'], model2=data2['model'])
 
+    for label, (val1, val2) in specs.items():
+        table_html += f"""
+            <tr>
+                <td>{label}</td>
+                <td>{val1}</td>
+                <td>{val2}</td>
+            </tr>
+        """
+
+    table_html += "</tbody></table>"
+
+    st.markdown(table_html, unsafe_allow_html=True)
