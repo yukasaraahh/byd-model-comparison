@@ -134,7 +134,7 @@ def render_comparison_table(data1, data2):
         "อัตราเร่ง 0–100": (f"{data1['acceleration_0_100']} วิ", f"{data2['acceleration_0_100']} วิ"),
         "ความเร็วสูงสุด": (f"{data1['top_speed_kmph']} กม./ชม.", f"{data2['top_speed_kmph']} กม./ชม."),
         "ระบบขับเคลื่อน": (data1['drivetrain'], data2['drivetrain']),
-        "ความจุแบตเตอรี่": (f"{data1['battery_kwh']} kWh", f"{data2['battery_kwh']} kWh"), # Added kWh for clarity
+        "ความจุแบตเตอรี่": (f"{data1['battery_kwh']} kWh", f"{data2['battery_kwh']} kWh"),
     }
 
     html = f"""
