@@ -167,6 +167,8 @@ def read_google_sheet_csv(csv_url):
         return pd.DataFrame()
 
 def get_image_url(link):
+    if pd.isna(link) or not isinstance(link, str):
+        return ""
     match = re.search(r"/d/([a-zA-Z0-9_-]+)", link)
     if match:
         return f"https://drive.google.com/uc?export=view&id={match.group(1)}"
