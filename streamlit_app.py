@@ -94,10 +94,10 @@ st.markdown("""
     font-size: 18px;
   }
 }
-<style>
+
 .spec-table {
     width: 100%;
-    table-layout: fixed;  /* ✅ บังคับให้แบ่ง column เท่ากัน */
+    table-layout: fixed;
     border-collapse: collapse;
     margin-top: 20px;
     font-family: 'Noto Sans Thai', sans-serif;
@@ -105,17 +105,17 @@ st.markdown("""
 }
 
 .spec-table th, .spec-table td {
-    width: 50%;  /* ✅ ทำให้แต่ละช่องกว้างเท่ากัน */
+    width: 50%;
     padding: 14px;
     font-size: 15px;
     text-align: center;
     background-color: #fff;
     border-bottom: 1px solid #eee;
-    word-wrap: break-word;  /* ✅ ป้องกันข้อความล้น */
+    word-wrap: break-word;
 }
 
 .spec-table tr th:first-child[colspan="2"] {
-    width: 100%;  /* ✅ สำหรับแถวหัวข้อกลาง (เช่น ระยะทาง) */
+    width: 100%;
 }
 
 .spec-table th {
@@ -129,7 +129,7 @@ st.markdown("""
     background-color: #fafafa;
 }
 </style>
-
+""", unsafe_allow_html=True)
 
 # ---------------- Utility Functions ----------------
 def convert_google_sheet_link_to_csv(shared_link: str) -> str:
