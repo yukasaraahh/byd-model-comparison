@@ -96,32 +96,27 @@ st.markdown("""
 }
 .spec-table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-top: 30px;
-    font-family: 'Sarabun', sans-serif;
-    font-size: 16px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-}
-.spec-table thead tr {
-    background-color: #f9fafb;
-}
-.spec-table th, .spec-table td {
-    padding: 16px 12px;
-    text-align: center;
-    border-bottom: 1px solid #f1f1f1;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 .spec-table th {
-    font-weight: 600;
-    color: #333;
-}
-.spec-table tbody tr:hover {
-    background-color: #f5f7fa;
+    background-color: #f4f4f4;
+    padding: 12px;
+    font-size: 16px;
+    text-align: left;
+    color: #222;
 }
 .spec-table td {
-    color: #444;
+    padding: 14px;
+    font-size: 15px;
+    text-align: center;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+.spec-table tr:nth-child(even) td {
+    background-color: #fafafa;
 }
 </style>
 """, unsafe_allow_html=True)
