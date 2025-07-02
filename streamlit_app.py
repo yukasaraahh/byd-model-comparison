@@ -239,12 +239,13 @@ def render_model_boxes(data1, data2):
 # ---------------- Render Comparison Table ----------------
 def render_comparison_table(data1, data2):
     specs = {
-        "ระยะทาง": ("range_km", "กม."),
+        "ระยะทางวิ่งสูงสุด (มาตรฐาน NEDC)": ("range_km", "กม."),
+        "ความจุแบตเตอรี่": ("battery_kwh", "kWh"),
         "จำนวนที่นั่ง": ("seats", "ที่นั่ง"),
         "ความเร็วสูงสุด": ("top_speed_kmph", "กม./ชม."),
         "อัตราเร่ง 0–100": ("acceleration_0_100", "วิ"),
         "ระบบขับเคลื่อน": ("drivetrain", ""),
-        "ความจุแบตเตอรี่": ("battery_kwh", "kWh"),
+        
     }
 
     rows = ["<table class='spec-table'><tbody>"]
