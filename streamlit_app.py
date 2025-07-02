@@ -270,8 +270,8 @@ def render_comparison_table(data1, data2):
     # ✅ แถวชื่อรถ
     rows.append(f"""
     <tr>
-      <th>{data1.get("model", "")}</th>
-      <th>{data2.get("model", "")}</th>
+      <th>{data1.get("model", "")} - {data1.get("variant", "")}</th>
+      <th>{data2.get("model", "")} - {data2.get("variant", "")}</th>
     </tr>
     """)
 
