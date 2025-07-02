@@ -94,32 +94,42 @@ st.markdown("""
     font-size: 18px;
   }
 }
+<style>
 .spec-table {
     width: 100%;
+    table-layout: fixed;  /* ✅ บังคับให้แบ่ง column เท่ากัน */
     border-collapse: collapse;
     margin-top: 20px;
     font-family: 'Noto Sans Thai', sans-serif;
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
-.spec-table th {
-    background-color: #f4f4f4;
-    padding: 12px;
-    font-size: 16px;
-    text-align: center;
-    color: #222;
-}
-.spec-table td {
+
+.spec-table th, .spec-table td {
+    width: 50%;  /* ✅ ทำให้แต่ละช่องกว้างเท่ากัน */
     padding: 14px;
     font-size: 15px;
     text-align: center;
     background-color: #fff;
     border-bottom: 1px solid #eee;
+    word-wrap: break-word;  /* ✅ ป้องกันข้อความล้น */
 }
+
+.spec-table tr th:first-child[colspan="2"] {
+    width: 100%;  /* ✅ สำหรับแถวหัวข้อกลาง (เช่น ระยะทาง) */
+}
+
+.spec-table th {
+    background-color: #f4f4f4;
+    font-size: 16px;
+    font-weight: bold;
+    color: #222;
+}
+
 .spec-table tr:nth-child(even) td {
     background-color: #fafafa;
 }
 </style>
-""", unsafe_allow_html=True)
+
 
 # ---------------- Utility Functions ----------------
 def convert_google_sheet_link_to_csv(shared_link: str) -> str:
