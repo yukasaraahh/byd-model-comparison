@@ -245,13 +245,22 @@ def render_model_boxes(data1, data2):
 # ---------------- Render Comparison Table ----------------
 def render_comparison_table(data1, data2):
     specs = {
-        "ระยะทางวิ่งสูงสุด (มาตรฐาน NEDC)": ("range_km", "กม."),
-        "ความจุแบตเตอรี่": ("battery_kwh", "kWh"),
+        "ชนิดรถยนต์": ("body_type", ""),
+        "ประเภทรถยนต์": ("car_type", ""),
+        "ขนาด (กว้าง x ยาว x สูง)": ("dimensions", "มม."),
         "จำนวนที่นั่ง": ("seats", "ที่นั่ง"),
-        "ความเร็วสูงสุด": ("top_speed_kmph", "กม./ชม."),
-        "อัตราเร่ง 0–100": ("acceleration_0_100", "วิ"),
         "ระบบขับเคลื่อน": ("drivetrain", ""),
-        
+        "ระยะทางวิ่งไฟฟ้าสูงสุด (มาตรฐาน NEDC)": ("ev_range", "กม."),
+        "ระยะทางวิ่งไฟฟ้า+น้ำมันสูงสุด": ("total_range", "กม."),
+        "ความจุแบตเตอรี่": ("battery_kwh", "kWh"),
+        "ความจุถังน้ำมัน (ลิตร)": ("fuel_tank", "ลิตร"),
+        "กำลังรวมสูงสุด (แรงม้า)": ("max_power", "แรงม้า"),
+        "แรงบิดรวมสูงสุด (Nm)": ("max_torque", "Nm"),
+        "อัตราเร่ง 0-100 กม./ชม. (วินาที)": ("acceleration_0_100", "วินาที"),
+        "รองรับหัวชาร์จ AC Type 2 - กำลังสูงสุด": ("ac_charging_power", "kW"),
+        "รองรับหัวชาร์จ DC CCS2 - กำลังสูงสุด": ("dc_charging_power", "kW"),
+        "ความจุพื้นที่เก็บสัมภาระท้ายรถ": ("cargo_capacity", "ลิตร"),
+        "ความสูงใต้ท้องรถ": ("ground_clearance", "มม."),
     }
 
     rows = ["<table class='spec-table'><tbody>"]
