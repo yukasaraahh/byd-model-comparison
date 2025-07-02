@@ -118,6 +118,13 @@ st.markdown("""
     background-color: #000 !important;
     color: #fff !important;
 }
+.spec-table tr:first-child th:first-child {
+    border-top-left-radius: 12px;
+}
+.spec-table tr:first-child th:last-child {
+    border-top-right-radius: 12px;
+}
+
 .spec-table tr th:first-child[colspan="2"] {
     width: 100%;
 }
