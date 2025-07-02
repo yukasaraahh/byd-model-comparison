@@ -158,15 +158,21 @@ def get_image_url(link):
 
 # ✅ วางตรงนี้!
 def show_model_card(data):
-    html = f"""
+    html = """
     <div class="compare-box">
-        <img src="{get_image_url(data['image'])}" alt="{data['model']}" style="width:100%; border-radius: 10px;">
-        <div class="model-title">{data['model']}</div>
-        <div class="model-variant">{data['variant']}</div>
-        <div class="model-price">฿{int(data['price']):,}</div>
+        <img src="{img}" alt="{model}" style="width:100%; border-radius: 10px;">
+        <div class="model-title">{model}</div>
+        <div class="model-variant">{variant}</div>
+        <div class="model-price">&#3647;{price:,}</div>
     </div>
-    """
+    """.format(
+        img=get_image_url(data['image']),
+        model=data['model'],
+        variant=data['variant'],
+        price=int(data['price'])
+    )
     st.markdown(html, unsafe_allow_html=True)
+
 
 # ---------------- Load Sheet ----------------
 sheet_link = "https://docs.google.com/spreadsheets/d/1haRAYhZrOXFX817BgJNwo2rcIUgy8K5ZNGUnT8juy1w/edit?usp=sharing"
