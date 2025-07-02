@@ -115,8 +115,9 @@ st.markdown("""
 }
 
 .spec-table tr:first-child th {
-    background-color: #000 !important;
-    color: #fff !important;
+    background: linear-gradient(90deg, #cc0000, #ff0000);
+    color: white !important;
+    border-top: 4px solid #cc0000;
 }
 .spec-table tr:first-child th:first-child {
     border-top-left-radius: 12px;
@@ -138,6 +139,10 @@ st.markdown("""
 
 .spec-table tr:nth-child(even) td {
     background-color: #fafafa;
+}
+.spec-table td:hover {
+    background-color: #f0f0f0;
+    transition: background-color 0.3s ease;
 }
 </style>
 """, unsafe_allow_html=True)
