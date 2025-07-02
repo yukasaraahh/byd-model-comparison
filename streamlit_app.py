@@ -115,10 +115,10 @@ st.markdown("""
 }
 
 .spec-table tr:first-child th {
-    background: linear-gradient(90deg, #cc0000, #ff0000);
-    color: white !important;
-    border-top: 4px solid #cc0000;
+    background-color: #ff0000 !important;
+    color: #fff !important;
 }
+
 .spec-table tr:first-child th:first-child {
     border-top-left-radius: 12px;
 }
