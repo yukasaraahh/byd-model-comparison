@@ -208,13 +208,13 @@ def render_model_boxes(data1, data2):
             <img src="{get_image_url(data1['image'])}" alt="{data1['model']}" style="width:100%; border-radius: 10px;">
             <div class="model-title">{data1['model']}</div>
             <div class="model-variant">{data1['variant']}</div>
-            <div class="model-price">฿{int(data1['price']):,}</div>
+            <div class="model-price">&#3647;{int(data1['price']):,}</div>
         </div>
         <div class="compare-box">
             <img src="{get_image_url(data2['image'])}" alt="{data2['model']}" style="width:100%; border-radius: 10px;">
             <div class="model-title">{data2['model']}</div>
             <div class="model-variant">{data2['variant']}</div>
-            <div class="model-price">฿{int(data2['price']):,}</div>
+            <div class="model-price">&#3647;{int(data2['price']):,}</div>
         </div>
     </div>
     """
