@@ -215,21 +215,24 @@ def render_comparison_table(data1, data2):
         "ความจุแบตเตอรี่": ("battery_kwh", "kWh"),
     }
 
-    html = "<table class='spec-table'><tbody>"
+    rows = ["<table class='spec-table'><tbody>"]
+    
     for label, (key, unit) in specs.items():
         val1 = data1.get(key, "–")
         val2 = data2.get(key, "–")
 
-        # รองรับ NaN และหน่วย
+        # จัดการค่าที่เป็น NaN หรือ null
         val1 = f"{val1} {unit}" if pd.notnull(val1) else "–"
         val2 = f"{val2} {unit}" if pd.notnull(val2) else "–"
 
-        html += f"""
-        <tr><th colspan="2">{label}</th></tr>
-        <tr><td>{val1}</td><td>{val2}</td></tr>
-        """
-    html += "</tbody></table>"
-    st.markdown(html, unsafe_allow_html=True)
+        rows.append(f"<tr><th colspan='2'>{label}</th></tr>")
+        rows.append(f"<tr><td>{val1}</td><td>{val2}</td></tr>")
+
+    rows.append("</tbody></table>")
+
+    # แสดงผล HTML ที่ประกอบเป็นบรรทัดเดียว
+    st.markdown("".join(rows), unsafe_allow_html=True)
+
 
 # ---------------- Render Output ----------------
 st.markdown("### 🔍 เปรียบเทียบรุ่นรถ BYD")
