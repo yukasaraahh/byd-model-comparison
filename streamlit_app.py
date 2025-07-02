@@ -174,6 +174,13 @@ def get_image_url(link):
         return f"https://drive.google.com/uc?export=view&id={match.group(1)}"
     return link
 
+def format_value(val, unit):
+    if pd.isnull(val):
+        return "–"
+    if isinstance(val, (int, float)) and float(val).is_integer():
+        return f"{int(val)} {unit}"
+    return f"{val} {unit}"
+
 # ✅ วางตรงนี้!
 def show_model_card(data):
     html = """
@@ -279,8 +286,8 @@ def render_comparison_table(data1, data2):
         val1 = data1.get(key, "–")
         val2 = data2.get(key, "–")
 
-        val1 = f"{val1} {unit}" if pd.notnull(val1) else "–"
-        val2 = f"{val2} {unit}" if pd.notnull(val2) else "–"
+        val1 = format_value(data1.get(key, None), unit)
+        val2 = format_value(data2.get(key, None), unit)
 
         # ✅ หัวข้อสเปคกลางแถว
         rows.append(f"<tr><th colspan='2'>{label}</th></tr>")
