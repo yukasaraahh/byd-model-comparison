@@ -100,6 +100,7 @@ st.markdown("""
     margin-top: 20px;
     font-family: 'Noto Sans Thai', sans-serif;
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    text-align: center; 
 }
 .spec-table th {
     background-color: #f4f4f4;
@@ -216,21 +217,27 @@ def render_comparison_table(data1, data2):
     }
 
     rows = ["<table class='spec-table'><tbody>"]
-    
+
+    # ✅ เพิ่มชื่อรถ
+    rows.append(f"""
+    <tr>
+      <th></th>
+      <th>{data1.get("model", "")}</th>
+      <th>{data2.get("model", "")}</th>
+    </tr>
+    """)
+
     for label, (key, unit) in specs.items():
         val1 = data1.get(key, "–")
         val2 = data2.get(key, "–")
 
-        # จัดการค่าที่เป็น NaN หรือ null
         val1 = f"{val1} {unit}" if pd.notnull(val1) else "–"
         val2 = f"{val2} {unit}" if pd.notnull(val2) else "–"
 
-        rows.append(f"<tr><th colspan='2'>{label}</th></tr>")
-        rows.append(f"<tr><td>{val1}</td><td>{val2}</td></tr>")
+        rows.append(f"<tr><th colspan='3'>{label}</th></tr>")
+        rows.append(f"<tr><td></td><td>{val1}</td><td>{val2}</td></tr>")
 
     rows.append("</tbody></table>")
-
-    # แสดงผล HTML ที่ประกอบเป็นบรรทัดเดียว
     st.markdown("".join(rows), unsafe_allow_html=True)
 
 
