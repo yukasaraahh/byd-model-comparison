@@ -245,9 +245,9 @@ def render_model_boxes(data1, data2):
 # ---------------- Render Comparison Table ----------------
 def render_comparison_table(data1, data2):
     specs = {
-        "ชนิดรถยนต์": ("body_type", ""),
-        "ประเภทรถยนต์": ("car_type", ""),
-        "ขนาด (กว้าง x ยาว x สูง)": ("dimensions", "มม."),
+        "ชนิดรถยนต์": ("car_type", ""),
+        "ประเภทรถยนต์": ("powertrain_type", ""),
+        "ขนาด (กว้าง x ยาว x สูง)": ("dimension", "มม."),
         "จำนวนที่นั่ง": ("seats", "ที่นั่ง"),
         "ระบบขับเคลื่อน": ("drivetrain", ""),
         "ระยะทางวิ่งไฟฟ้าสูงสุด (มาตรฐาน NEDC)": ("ev_range", "กม."),
