@@ -163,7 +163,7 @@ def show_model_card(data):
         <img src="{img}" alt="{model}" style="width:100%; border-radius: 10px;">
         <div class="model-title">{model}</div>
         <div class="model-variant">{variant}</div>
-        <div class="model-price">&#3647;{price:,}</div>
+        <div class="model-price">บาท{price:,}</div>
     </div>
     """.format(
         img=get_image_url(data['image']),
