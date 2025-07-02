@@ -115,7 +115,7 @@ st.markdown("""
 }
 
 .spec-table tr:first-child th {
-    background-color: #ff0000 !important;
+    background-color: #cc0000 !important;
     color: #fff !important;
 }
 
