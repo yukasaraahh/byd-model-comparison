@@ -206,15 +206,21 @@ if df.empty or 'model' not in df.columns:
     st.stop()
 
 # ---------------- User Inputs ----------------
-car_names = df['model'].unique().tolist()
-col1, col2 = st.columns(2)
-with col1:
-    car_1 = st.selectbox("🚗 เลือกรถคันที่ 1", car_names, key="car1")
-with col2:
-    car_2 = st.selectbox("🚗 เลือกรถคันที่ 2", car_names, index=1 if len(car_names) > 1 else 0, key="car2")
+# ✅ เพิ่มคอลัมน์ใหม่สำหรับการแสดงชื่อรถ + รุ่นย่อย
+df["label"] = df["model"] + " - " + df["variant"]
 
-car1_data = df[df['model'] == car_1].iloc[0]
-car2_data = df[df['model'] == car_2].iloc[0]
+# ✅ ใช้ label แสดงใน dropdown
+car_names = df["label"].tolist()
+col1, col2 = st.columns(2)
+
+with col1:
+    car_1_label = st.selectbox("🚗 เลือกรถคันที่ 1", car_names, key="car1")
+with col2:
+    car_2_label = st.selectbox("🚗 เลือกรถคันที่ 2", car_names, index=1 if len(car_names) > 1 else 0, key="car2")
+
+# ✅ ดึงข้อมูลแถวของรถแต่ละคัน
+car1_data = df[df["label"] == car_1_label].iloc[0]
+car2_data = df[df["label"] == car_2_label].iloc[0]
 
 # ---------------- Render Car Boxes ----------------
 def render_model_boxes(data1, data2):
