@@ -212,23 +212,25 @@ def render_model_boxes(data1, data2):
 # ---------------- Render Comparison Table ----------------
 def render_comparison_table(data1, data2):
     specs = {
-        "ระยะทาง": (f"{data1['range_km']} กม.", f"{data2['range_km']} กม."),
-        "ที่นั่ง": (f"{int(data1['seats'])} ที่นั่ง", f"{int(data2['seats'])} ที่นั่ง"),
-        "อัตราเร่ง 0–100": (f"{data1['acceleration_0_100']} วิ", f"{data2['acceleration_0_100']} วิ"),
-        "ความเร็วสูงสุด": (f"{data1['top_speed_kmph']} กม./ชม.", f"{data2['top_speed_kmph']} กม./ชม."),
+        "ประเภทเชื้อเพลิง": (data1['fuel_type'], data2['fuel_type']),
         "ระบบขับเคลื่อน": (data1['drivetrain'], data2['drivetrain']),
-        "ความจุแบตเตอรี่": (f"{data1['battery_kwh']} kWh", f"{data2['battery_kwh']} kWh"),
+        "จำนวนเกียร์": (f"{data1['gears']} เกียร์", f"{data2['gears']} เกียร์"),
+        "ประเภทเกียร์": (data1['gearbox_type'], data2['gearbox_type']),
+        "ระบบส่งกำลัง": (data1['powertrain'], data2['powertrain']),
+        "ระบบจ่ายเชื้อเพลิง": (data1['fuel_supply'], data2['fuel_supply']),
+        "จำนวนกระบอกสูบ": (f"{data1['cylinders']} สูบ", f"{data2['cylinders']} สูบ"),
+        "Bore x Stroke (mm)": (data1['bore_stroke'], data2['bore_stroke']),
     }
 
-    html = f"""
+    html = """
     <table class="spec-table">
-        <thead>
-            <tr><th>สเปค</th><th>{data1['model']}</th><th>{data2['model']}</th></tr>
-        </thead>
         <tbody>
     """
     for label, (val1, val2) in specs.items():
-        html += f"<tr><td>{label}</td><td>{val1}</td><td>{val2}</td></tr>"
+        html += f"""
+        <tr><th colspan="2">{label}</th></tr>
+        <tr><td>{val1}</td><td>{val2}</td></tr>
+        """
     html += "</tbody></table>"
 
     st.markdown(html, unsafe_allow_html=True)
