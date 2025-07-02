@@ -114,6 +114,10 @@ st.markdown("""
     word-wrap: break-word;
 }
 
+.spec-table tr:first-child th {
+    background-color: #000 !important;
+    color: #fff !important;
+}
 .spec-table tr th:first-child[colspan="2"] {
     width: 100%;
 }
