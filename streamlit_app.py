@@ -277,34 +277,33 @@ def render_comparison_table(data1, data2):
     rows = ["<table class='spec-table'><tbody>"]
 
     # ✅ แถวชื่อรถ
-# ✅ แถวชื่อรถ
-rows.append(f"""
-<tr>
-  <th>{data1.get("model", "")} - {data1.get("variant", "")}</th>
-  <th>{data2.get("model", "")} - {data2.get("variant", "")}</th>
-</tr>
-""")
-
-# ✅ แสดงแต่ละสเปก
-for label, (key, unit) in specs.items():
-    val1 = format_value(data1.get(key, None), unit)
-    val2 = format_value(data2.get(key, None), unit)
-
-    rows.append(f"<tr><th colspan='2'>{label}</th></tr>")
-    rows.append(f"<tr><td>{val1}</td><td>{val2}</td></tr>")
-
-# ✅ แถวลิงก์ตารางผ่อน (วางก่อนปิด </tbody></table>)
-inst_row = f"""
-<tr>
-  <td><a href="{data1.get("installment_url", "#")}" target="_blank" style="text-decoration:none; color:#0044cc; font-weight:600;">📋 ดูตารางผ่อน</a></td>
-  <td><a href="{data2.get("installment_url", "#")}" target="_blank" style="text-decoration:none; color:#0044cc; font-weight:600;">📋 ดูตารางผ่อน</a></td>
-</tr>
-"""
-rows.append(inst_row)
-
-# ✅ ปิด table
-rows.append("</tbody></table>")
-st.markdown("".join(rows), unsafe_allow_html=True)
+    rows.append(f"""
+    <tr>
+      <th>{data1.get("model", "")} - {data1.get("variant", "")}</th>
+      <th>{data2.get("model", "")} - {data2.get("variant", "")}</th>
+    </tr>
+    """)
+    
+    # ✅ แสดงแต่ละสเปก
+    for label, (key, unit) in specs.items():
+        val1 = format_value(data1.get(key, None), unit)
+        val2 = format_value(data2.get(key, None), unit)
+    
+        rows.append(f"<tr><th colspan='2'>{label}</th></tr>")
+        rows.append(f"<tr><td>{val1}</td><td>{val2}</td></tr>")
+    
+    # ✅ แถวลิงก์ตารางผ่อน (วางก่อนปิด </tbody></table>)
+    inst_row = f"""
+    <tr>
+      <td><a href="{data1.get("installment_url", "#")}" target="_blank" style="text-decoration:none; color:#0044cc; font-weight:600;">📋 ดูตารางผ่อน</a></td>
+      <td><a href="{data2.get("installment_url", "#")}" target="_blank" style="text-decoration:none; color:#0044cc; font-weight:600;">📋 ดูตารางผ่อน</a></td>
+    </tr>
+    """
+    rows.append(inst_row)
+    
+    # ✅ ปิด table
+    rows.append("</tbody></table>")
+    st.markdown("".join(rows), unsafe_allow_html=True)
 
 # ---------------- Render Output ----------------
 st.markdown("### 🔍 เปรียบเทียบรุ่นรถ BYD")
