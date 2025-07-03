@@ -237,18 +237,23 @@ car2_data = df[df["label"] == car_2_label].iloc[0]
 def render_model_boxes(data1, data2):
     html = f"""
     <div class="compare-container">
+        {"".join([
+        f'''
         <div class="compare-box">
-            <img src="{get_image_url(data1['image'])}" alt="{data1['model']}" style="width:100%; border-radius: 10px;">
-            <div class="model-title">{data1['model']}</div>
-            <div class="model-variant">{data1['variant']}</div>
-            <div class="model-price">&#3647;{int(data1['price']):,}</div>
+            <img src="{get_image_url(data['image'])}" alt="{data['model']}" style="width:100%; border-radius: 10px;">
+            <div class="model-title">{data['model']}</div>
+            <div class="model-variant">{data['variant']}</div>
+            <div class="model-price">&#3647;{int(data['price']):,}</div>
+            <div style="margin-top:10px;">
+                <a href="{data.get('spec_url', '#')}" target="_blank" style="margin-right:10px; text-decoration: none; font-weight: bold; color: #cc0000;">
+                    🔗 ดูสเปกรถ
+                </a>
+                <a href="{data.get('installment_url', '#')}" target="_blank" style="text-decoration: none; font-weight: bold; color: #0044cc;">
+                    📋 ตารางผ่อน
+                </a>
+            </div>
         </div>
-        <div class="compare-box">
-            <img src="{get_image_url(data2['image'])}" alt="{data2['model']}" style="width:100%; border-radius: 10px;">
-            <div class="model-title">{data2['model']}</div>
-            <div class="model-variant">{data2['variant']}</div>
-            <div class="model-price">&#3647;{int(data2['price']):,}</div>
-        </div>
+        ''' for data in [data1, data2]])}
     </div>
     """
     st.markdown(html, unsafe_allow_html=True)
