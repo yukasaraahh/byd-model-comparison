@@ -1,4 +1,6 @@
 import streamlit as st
+st.set_page_config(page_title="เปรียบเทียบสเปครถ BYD ทุกรุ่น | BYD ชลบุรี ออโตโมทีฟ", page_icon="🚗", layout="wide")
+
 # ---------------- Font ----------------
 st.markdown("""
     <style>
@@ -205,7 +207,7 @@ csv_link = convert_google_sheet_link_to_csv(sheet_link)
 df = read_google_sheet_csv(csv_link)
 
 # ---------------- Data Clean ----------------
-numeric_columns = ['price', 'range_km', 'seats', 'top_speed_kmph', 'acceleration_0_100', 'battery_kwh']
+numeric_columns = ['price', 'range_km', 'top_speed_kmph', 'acceleration_0_100', 'battery_kwh']
 for col in numeric_columns:
     if col in df.columns:
         df[col] = pd.to_numeric(df[col], errors='coerce')
@@ -302,3 +304,35 @@ render_model_boxes(car1_data, car2_data)
 
 st.markdown("### 📋 ตารางเปรียบเทียบสเปกรถ")
 render_comparison_table(car1_data, car2_data)
+
+# ---------------- Footer ----------------
+
+st.markdown("""
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    .viewerBadge_container__1QSob {display: none !important;}
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+    <style>
+    .custom-footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #f8f8f8;
+        text-align: center;
+        padding: 10px;
+        font-size: 13px;
+        color: #666;
+        border-top: 1px solid #eaeaea;
+        font-family: 'Noto Sans Thai', sans-serif;
+    }
+    </style>
+
+    <div class="custom-footer">
+        © 2025 <strong>BYD ชลบุรี ออโตโมทีฟ</strong> | <a href="https://www.bydchonburi.com" target="_blank" style="color:#666;text-decoration:none;">bydchonburi.com</a>
+    </div>
+""", unsafe_allow_html=True)
